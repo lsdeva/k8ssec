@@ -117,7 +117,7 @@ Securing Kubernetes Workloads Against Common Attack Vectors
 
 ### 12. **Incident Response:**
    - **Plan:** 
-     - While no specific command for this, ensure that written plans and procedures are documented, accessible, and known by the team members. Utilize Kubernetes auditing and logging to gather information during incidents.
+     - Ensure that written plans and procedures are documented, accessible, and known by the team members. Utilize Kubernetes auditing and logging to gather information during incidents.
    - **Drills:** 
      - Use `kubectl` commands to simulate failure scenarios, like draining nodes or deleting pods, to practice incident responses.
        
