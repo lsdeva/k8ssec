@@ -76,27 +76,27 @@ Securing Kubernetes Workloads Against Common Attack Vectors
 
 ### 5. **Image Security:**
    - **Image Scanning:** 
-     - No direct `kubectl` command, third-party tools are used for image scanning.
+     - While there's no direct `kubectl` command for image scanning, you can integrate image scanning tools like Clair, Trivy, or Anchore into your CI/CD pipeline to automatically scan images during the build and deployment process.
    - **Signed Images:**
-     - No direct `kubectl` command, images should be signed during the build and push phase.
+     - Utilize Docker Content Trust or a similar tool to sign images during the build phase, then configure your Kubernetes to only pull signed images.
 
 ### 6. **Runtime Security:**
    - **Anomaly Detection:** 
-     - No direct `kubectl` command, external tools and systems are needed.
+     - Implement and configure tools like Falco or Sysdig that are capable of runtime security monitoring. They can be deployed as DaemonSets on Kubernetes clusters.
    - **Security Plugins:**
-     - Depends on the specific plugins; generally, they are installed and managed through configurations.
+     - While specific commands depend on the plugin, generally, they are installed and configured via Helm charts, Operators, or YAML files.
 
 ### 7. **API Server Security:**
    - **Authentication:** 
-     - No specific `kubectl` command, configured within API server settings.
+     - Configure authentication mechanisms, such as OIDC or token-based authentication, by modifying the API server’s startup parameters or configuration files.
    - **Authorization:** 
-     - Same as above.
+     - Implement RBAC and create roles and role bindings to assign permissions, as detailed in the Access Control section.
 
 ### 8. **Logging and Monitoring:**
    - **Centralized Logging:** 
-     - No direct `kubectl` command, implemented through logging solutions configurations.
+     - Deploy logging solutions like the EFK (Elasticsearch, Fluentd, and Kibana) stack or Loki-Stack as a DaemonSet or StatefulSet in your cluster. 
    - **Alerts:** 
-     - No direct `kubectl` command, alerts are configured in monitoring solutions like Prometheus.
+     - Use Prometheus with Alertmanager to set up alerts. Deploy them using Helm or applying YAML files and configure alerting rules.
 
 ### 9. **Resource Management:**
    - **Quotas and Limits:** 
@@ -105,22 +105,22 @@ Securing Kubernetes Workloads Against Common Attack Vectors
 
 ### 10. **Cluster Updates:**
    - **Patching:** 
-     - No direct `kubectl` command, can be handled by package managers or cloud provider tools.
+     - Depending on the Kubernetes distribution, use package managers like `apt` or `yum`, or use kubeadm: `kubeadm upgrade apply <version>`.
    - **Version Upgrades:**
-     - Upgrade command depends on the specific setup, often managed through upgrade scripts or cloud provider consoles.
+     - Use the appropriate upgrade procedures for your specific Kubernetes distribution, often involving commands like `kubectl drain <node-name>` for node maintenance and upgrade.
 
 ### 11. **Third-party Security Tools:**
    - **CIS Benchmarks:** 
-     - No direct `kubectl` command, involves running audit scripts or third-party tools.
+     - Utilize tools like kube-bench that can be run as a job or pod in your cluster to check the configurations against CIS benchmarks.
    - **Security Software:** 
-     - No direct `kubectl` command, involves installing and configuring third-party software.
+     - Deploy solutions like Aqua Security, Sysdig, or Twistlock as Helm charts, Operators, or via YAML files and configure them as per your security requirements.
 
 ### 12. **Incident Response:**
    - **Plan:** 
-     - No direct `kubectl` command, it’s about having written plans and procedures.
+     - While no specific command for this, ensure that written plans and procedures are documented, accessible, and known by the team members. Utilize Kubernetes auditing and logging to gather information during incidents.
    - **Drills:** 
-     - No direct `kubectl` command, involves testing the incident response plan.
-
+     - Use `kubectl` commands to simulate failure scenarios, like draining nodes or deleting pods, to practice incident responses.
+       
 ### 13. **Backup and Recovery:**
    - **Backup:** 
      - Using Velero: `velero backup create <backup-name> --include-namespaces=<namespaces>`
