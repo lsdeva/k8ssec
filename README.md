@@ -48,6 +48,85 @@ Securing Kubernetes Workloads Against Common Attack Vectors
    - **Plan:** Have an incident response plan in place.
    - **Drills:** Conduct regular drills to ensure the effectiveness of the response plan.
 
+
+# kubectl commands
+
+### 1. **Access Control:**
+   - **RBAC:**
+     - Creating a Role: `kubectl create role <role-name> --verb=<verbs> --resource=<resources>`
+     - Creating a ClusterRole: `kubectl create clusterrole <role-name> --verb=<verbs> --resource=<resources>`
+   - **Namespace Isolation:**
+     - Creating a Namespace: `kubectl create namespace <namespace-name>`
+
+### 2. **Network Policies:**
+   - **Firewall Rules:** 
+     - Apply a Network Policy: `kubectl apply -f <networkpolicy.yaml>`
+   - **Ingress/Egress Controls:**
+     - Apply Ingress: `kubectl apply -f <ingress.yaml>`
+
+### 3. **Security Contexts:**
+   - **Pod Security:** 
+     - Apply Security Context: Include security context in the pod’s YAML file and apply using `kubectl apply -f <pod.yaml>`
+
+### 4. **Secret Management:**
+   - **Encryption:**
+     - Create a Secret: `kubectl create secret generic <secret-name> --from-literal=key=value`
+   - **Secret Engines:**
+     - No direct `kubectl` commands, usually configured via a UI or API.
+
+### 5. **Image Security:**
+   - **Image Scanning:** 
+     - No direct `kubectl` command, third-party tools are used for image scanning.
+   - **Signed Images:**
+     - No direct `kubectl` command, images should be signed during the build and push phase.
+
+### 6. **Runtime Security:**
+   - **Anomaly Detection:** 
+     - No direct `kubectl` command, external tools and systems are needed.
+   - **Security Plugins:**
+     - Depends on the specific plugins; generally, they are installed and managed through configurations.
+
+### 7. **API Server Security:**
+   - **Authentication:** 
+     - No specific `kubectl` command, configured within API server settings.
+   - **Authorization:** 
+     - Same as above.
+
+### 8. **Logging and Monitoring:**
+   - **Centralized Logging:** 
+     - No direct `kubectl` command, implemented through logging solutions configurations.
+   - **Alerts:** 
+     - No direct `kubectl` command, alerts are configured in monitoring solutions like Prometheus.
+
+### 9. **Resource Management:**
+   - **Quotas and Limits:** 
+     - Apply Resource Quota: `kubectl apply -f <resourcequota.yaml>`
+     - Apply Limit Range: `kubectl apply -f <limitrange.yaml>`
+
+### 10. **Cluster Updates:**
+   - **Patching:** 
+     - No direct `kubectl` command, can be handled by package managers or cloud provider tools.
+   - **Version Upgrades:**
+     - Upgrade command depends on the specific setup, often managed through upgrade scripts or cloud provider consoles.
+
+### 11. **Third-party Security Tools:**
+   - **CIS Benchmarks:** 
+     - No direct `kubectl` command, involves running audit scripts or third-party tools.
+   - **Security Software:** 
+     - No direct `kubectl` command, involves installing and configuring third-party software.
+
+### 12. **Incident Response:**
+   - **Plan:** 
+     - No direct `kubectl` command, it’s about having written plans and procedures.
+   - **Drills:** 
+     - No direct `kubectl` command, involves testing the incident response plan.
+
+### 13. **Backup and Recovery:**
+   - **Backup:** 
+     - Using Velero: `velero backup create <backup-name> --include-namespaces=<namespaces>`
+   - **Disaster Recovery:** 
+     - Restoring using Velero: `velero restore create --from-backup <backup-name>`
+
 ### 13. **Backup and Recovery:**
    - **Backup:** Regularly backup Kubernetes configuration, applications, and data.
    - **Disaster Recovery:** Have a disaster recovery plan to restore operations after an attack.
